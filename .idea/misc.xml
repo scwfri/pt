@@ -4,6 +4,7 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots>
       <file path="$PROJECT_DIR$/maths" />
+      <file path="$PROJECT_DIR$/ray" />
     </sourceRoots>
   </component>
 </project>
