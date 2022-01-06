@@ -11,18 +11,25 @@ public:
 
     // FIXME copy constructor, etc
 
-    [[nodiscard]] double x() const { return m_x; }
-    [[nodiscard]] double y() const { return m_y; }
-    [[nodiscard]] double z() const { return m_z; }
+    [[nodiscard]] constexpr double x() const { return m_x; }
+    [[nodiscard]] constexpr double y() const { return m_y; }
+    [[nodiscard]] constexpr double z() const { return m_z; }
 
     Vec3 operator-() const { return Vec3(-m_x, -m_y, -m_z); }
 
     Vec3 operator+=(Vec3 const&);
     Vec3 operator*=(double);
-    Vec3&
-    operator/=(double);
-    [[nodiscard]] double length() const;
-    [[nodiscard]] double length_squared() const;
+    Vec3& operator/=(double);
+
+    [[nodiscard]] double length() const { return sqrt(length_squared()); }
+    [[nodiscard]] constexpr double length_squared() const
+    {
+        auto x = m_x * m_x;
+        auto y = m_y * m_y;
+        auto z = m_z * m_z;
+
+        return x + y + z;
+    }
 
     friend std::ostream& operator<<(std::ostream&, Vec3 const&);
 
@@ -34,7 +41,7 @@ public:
     friend Vec3 operator/(Vec3 v, double const t) { return (1 / t) * v; }
     friend Vec3 unit_vector(Vec3 v) { return v / v.length(); }
 
-    friend double dot(Vec3 const& u, Vec3 const& v)
+    friend constexpr double dot(Vec3 const& u, Vec3 const& v)
     {
         return u.x() * v.x() + u.y() * v.y() + u.z() * v.z();
     }

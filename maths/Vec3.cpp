@@ -33,20 +33,6 @@ Vec3& Vec3::operator/=(double const t)
     return *this;
 }
 
-double Vec3::length() const
-{
-    return sqrt(length_squared());
-}
-
-double Vec3::length_squared() const
-{
-    auto x = m_x * m_x;
-    auto y = m_y * m_y;
-    auto z = m_z * m_z;
-
-    return x + y + z;
-}
-
 std::ostream& operator<<(std::ostream& out, Vec3 const& v)
 {
     return out << v.x() << ' ' << v.y() << ' ' << v.z();
