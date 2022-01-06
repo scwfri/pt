@@ -7,6 +7,9 @@ class Vec3 {
 public:
     Vec3();
     Vec3(double x, double y, double z);
+    ~Vec3() = default;
+
+    // FIXME copy constructor, etc
 
     [[nodiscard]] double x() const { return m_x; }
     [[nodiscard]] double y() const { return m_y; }
