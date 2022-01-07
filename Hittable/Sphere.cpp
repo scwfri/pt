@@ -21,7 +21,7 @@ bool Sphere::hit(Ray const& ray, double const t_min, double const t_max, Hittabl
     auto root = (-half_b - discriminant_sqrt) / a;
     if (root < t_min || t_max < root) {
         root = (-half_b + discriminant_sqrt) / a;
-        if (root < t_min ||| t_max < root)
+        if (root < t_min || t_max < root)
             return false;
     }
 
