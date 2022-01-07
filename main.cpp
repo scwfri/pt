@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "maths/Color.h"
-#include "maths/Vec3.h"
-#include "ray/Ray.h"
+#include "Maths/Color.h"
+#include "Maths/Vec3.h"
+#include "Ray/Ray.h"
 
 double hit_sphere(Point3 const& center, double const radius, Ray const& r)
 {

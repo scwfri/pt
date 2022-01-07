@@ -3,8 +3,9 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
     <sourceRoots>
-      <file path="$PROJECT_DIR$/maths" />
-      <file path="$PROJECT_DIR$/ray" />
+      <file path="$PROJECT_DIR$/Hittable" />
+      <file path="$PROJECT_DIR$/Maths" />
+      <file path="$PROJECT_DIR$/Ray" />
     </sourceRoots>
   </component>
 </project>
