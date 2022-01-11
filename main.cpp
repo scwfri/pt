@@ -1,8 +1,12 @@
 #include <iostream>
 
+#include "Maths/utils.h"
 #include "Maths/Color.h"
 #include "Maths/Vec3.h"
 #include "Ray/Ray.h"
+#include "Hittable/Hittable.h"
+#include "Hittable/HittableWrapper.h"
+#include "Hittable/Sphere.h"
 
 double hit_sphere(Point3 const& center, double const radius, Ray const& r)
 {
@@ -17,16 +21,14 @@ double hit_sphere(Point3 const& center, double const radius, Ray const& r)
         return (-half_b - sqrt(discriminant)) / a;
 }
 
-Color ray_color(Ray const& r)
+Color ray_color(Ray const& ray, Hittable& world)
 {
-    auto t = hit_sphere(Point3(0, 0, -1), 0.5, r);
-    if (t > 0.0) {
-        Vec3 vec = unit_vector(r.at(t) - Vec3(0, 0, -1));
-        return 0.5 * Color(vec.x() + 1, vec.x() + 1, vec.z() + 1);
-    }
+    Hittable::HitRecord hit_record;
+    if (world.hit(ray, 0, infinity, hit_record))
+        return 0.5 * (hit_record.normal + Color(1.0, 1.0, 1.0));
 
-    Vec3 unit_direction = unit_vector(r.direction());
-    t = 0.5 * (unit_direction.y() + 1.0);
+    Vec3 unit_direction = unit_vector(ray.direction());
+    auto t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
@@ -36,6 +38,10 @@ int main()
     const auto aspect_ratio = 16.0 / 9.0;
     int const image_width = 400;
     int const image_height = static_cast<int>(image_width / aspect_ratio);
+
+    HittableWrapper world;
+    world.add(std::make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5));
+    world.add(std::make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100));
 
     // camera
     auto viewport_height = 2.0;
@@ -62,7 +68,7 @@ int main()
             auto u = double(i) / (image_width - 1);
             auto v = double(j) / (image_height - 1);
             Ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-            Color pixel_color = ray_color(r);
+            Color pixel_color = ray_color(r, world);
             write_color(std::cout, pixel_color);
         }
     }
