@@ -1,7 +1,7 @@
 CMAKE=cmake
 
 default: build
-.PHONY: run build
+.PHONY: run build clean
 
 build:
 	$(CMAKE) --build cmake-build-debug --target pt
@@ -10,3 +10,6 @@ build:
 run:
 	$(build)
 	gimp ./out/out.ppm
+
+clean:
+	rm -rf ./out/out.ppm
