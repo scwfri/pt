@@ -2,10 +2,12 @@
 
 #include <cmath>
 #include <iostream>
+#include "Utils.h"
 
 class Vec3 {
 public:
     Vec3();
+    Vec3(double min, double max);
     Vec3(double x, double y, double z);
     ~Vec3() = default;
 
@@ -51,6 +53,16 @@ public:
         return { u.y() * v.z() - u.z() * v.y(),
             u.z() * v.x() - u.x() * u.z(),
             u.x() * v.y() - u.y() * v.x() };
+    }
+
+    friend Vec3 random_in_unit_sphere()
+    {
+        while (true) {
+            auto vec = Vec3(-1, 1);
+            if (vec.length_squared() >= 1)
+                continue;
+            return vec;
+        }
     }
 
 private:

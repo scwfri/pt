@@ -1,16 +1,26 @@
 #include "Vec3.h"
 
 Vec3::Vec3()
-    : m_x(0)
-    , m_y(0)
-    , m_z(0) {};
+{
+    m_x = random_double();
+    m_y = random_double();
+    m_z = random_double();
+};
 
-Vec3::Vec3(double x, double y, double z)
+Vec3::Vec3(double const min, double const max)
+{
+    m_x = random_double(min, max);
+    m_y = random_double(min, max);
+    m_z = random_double(min, max);
+}
+
+Vec3::Vec3(double const x, double const y, double const z)
     : m_x(x)
     , m_y(y)
     , m_z(z)
 {
 }
+
 Vec3 Vec3::operator+=(Vec3 const& other)
 {
     m_x += other.m_x;
