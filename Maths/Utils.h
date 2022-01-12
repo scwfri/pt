@@ -27,3 +27,12 @@ inline double random_double(double const min, double const max)
     // Returns a random real in (min, max)
     return min + (max - min) * random_double();
 }
+
+inline double clamp(double const x, double const min, double const max)
+{
+    if (x < min)
+        return max;
+    if (x > max)
+        return max;
+    return x;
+}

@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Camera/Camera.h"
 #include "Maths/Utils.h"
 #include "Maths/Color.h"
 #include "Maths/Vec3.h"
@@ -38,38 +39,28 @@ int main()
     const auto aspect_ratio = 16.0 / 9.0;
     int const image_width = 400;
     int const image_height = static_cast<int>(image_width / aspect_ratio);
+    int const samples_per_pixel = 100;
 
     HittableWrapper world;
     world.add(std::make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5));
     world.add(std::make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100));
 
     // camera
-    auto viewport_height = 2.0;
-    auto viewport_width = aspect_ratio * viewport_height;
-    auto focal_length = 1.0;
-
-    auto origin = Point3(0, 0, 0);
-    auto horizontal = Vec3(viewport_width, 0, 0);
-    auto vertical = Vec3(0, viewport_height, 0);
-    auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0, 0, focal_length);
+    Camera camera;
 
     std::cout << "P3\n";
     std::cout << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
-            // auto r = double(i) / (image_width - 1);
-            // auto g = double(j) / (image_height - 1);
-            // auto b = 0.25;
-
-            // Color pixel_color = { r, g, b };
-            // write_color(std::cout, pixel_color);
-
-            auto u = double(i) / (image_width - 1);
-            auto v = double(j) / (image_height - 1);
-            Ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-            Color pixel_color = ray_color(r, world);
-            write_color(std::cout, pixel_color);
+            auto pixel_color = Color(0, 0, 0);
+            for (int s = 0; s < samples_per_pixel; ++s) {
+                auto u = (i + random_double()) / (image_width - 1);
+                auto v = (j + random_double()) / (image_height - 1);
+                Ray ray = camera.get_ray(u, v);
+                pixel_color += ray_color(ray, world);
+            }
+            write_color(std::cout, pixel_color, samples_per_pixel);
         }
     }
 }
