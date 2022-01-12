@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Maths/utils.h"
+#include "Maths/Utils.h"
 #include "Maths/Color.h"
 #include "Maths/Vec3.h"
 #include "Ray/Ray.h"
