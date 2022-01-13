@@ -43,6 +43,16 @@ Vec3& Vec3::operator/=(double const t)
     return *this;
 }
 
+Vec3 Vec3::random_in_unit_sphere()
+{
+    while (true) {
+        auto vec = Vec3(-1, 1);
+        if (vec.length_squared() >= 1)
+            continue;
+        return vec;
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, Vec3 const& v)
 {
     return out << v.x() << ' ' << v.y() << ' ' << v.z();

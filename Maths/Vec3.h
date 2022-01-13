@@ -55,15 +55,7 @@ public:
             u.x() * v.y() - u.y() * v.x() };
     }
 
-    friend Vec3 random_in_unit_sphere()
-    {
-        while (true) {
-            auto vec = Vec3(-1, 1);
-            if (vec.length_squared() >= 1)
-                continue;
-            return vec;
-        }
-    }
+    static Vec3 random_in_unit_sphere();
 
 private:
     double m_x;
