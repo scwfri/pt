@@ -31,7 +31,7 @@ inline double random_double(double const min, double const max)
 inline double clamp(double const x, double const min, double const max)
 {
     if (x < min)
-        return max;
+        return min;
     if (x > max)
         return max;
     return x;
