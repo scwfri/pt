@@ -13,7 +13,7 @@ Camera::Camera()
     m_lower_left_corner = m_origin - m_horizontal / 2 - m_vertical / 2 - Vec3(0.0, 0.0, focal_length);
 }
 
-Ray Camera::get_ray(double const u, double const v) const
+Ray Camera::get_ray(double u, double v) const
 {
     return Ray(m_origin, m_lower_left_corner + u * m_horizontal + v * m_vertical - m_origin);
 }
