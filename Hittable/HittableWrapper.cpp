@@ -1,6 +1,6 @@
 #include "HittableWrapper.h"
 
-bool HittableWrapper::hit(Ray const& ray, double const t_min, double const t_max, HitRecord& hit_record)
+bool HittableWrapper::hit(Ray const& ray, double t_min, double t_max, HitRecord& hit_record)
 {
     HitRecord _hit_record;
     bool hit_anything = false;

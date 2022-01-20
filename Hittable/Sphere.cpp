@@ -5,7 +5,7 @@ Sphere::Sphere(Point3 center, double const radius)
 , radius(radius)
 {
 }
-bool Sphere::hit(Ray const& ray, double const t_min, double const t_max, Hittable::HitRecord& hit_record)
+bool Sphere::hit(Ray const& ray, double t_min, double t_max, Hittable::HitRecord& hit_record)
 {
     Vec3 oc = ray.origin() - center;
     auto a = ray.direction().length_squared();
