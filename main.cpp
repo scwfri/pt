@@ -26,7 +26,7 @@ Color ray_color(Ray const& ray, Hittable& world, int depth)
 {
     Hittable::HitRecord hit_record;
     if (depth <= 0)
-        return { 0, 0, 0 };
+        return Color(0.0, 0.0, 0.0);
     if (world.hit(ray, 0.001, infinity, hit_record)) {
         Point3 target = hit_record.point + hit_record.normal + Vec3::random_in_unit_sphere();
         return 0.5 * ray_color(Ray(hit_record.point, target - hit_record.point), world, depth - 1);
