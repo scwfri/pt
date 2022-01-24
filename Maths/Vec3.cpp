@@ -1,18 +1,9 @@
 #include "Vec3.h"
 
 Vec3::Vec3()
-{
-    m_x = random_double();
-    m_y = random_double();
-    m_z = random_double();
-};
-
-Vec3::Vec3(double min, double max)
-{
-    m_x = random_double(min, max);
-    m_y = random_double(min, max);
-    m_z = random_double(min, max);
-}
+    : m_x(0)
+    , m_y(0)
+    , m_z(0) {};
 
 Vec3::Vec3(double x, double y, double z)
     : m_x(x)
@@ -46,7 +37,7 @@ Vec3& Vec3::operator/=(double t)
 Vec3 Vec3::random_in_unit_sphere()
 {
     while (true) {
-        auto vec = Vec3(-1, 1);
+        auto vec = Vec3::random(-1, 1);
         if (vec.length_squared() >= 1)
             continue;
         return vec;

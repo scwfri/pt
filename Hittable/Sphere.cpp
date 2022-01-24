@@ -1,10 +1,11 @@
 #include "Sphere.h"
 
 Sphere::Sphere(Point3 center, double const radius)
-: center(center)
-, radius(radius)
+    : center(center)
+    , radius(radius)
 {
 }
+
 bool Sphere::hit(Ray const& ray, double t_min, double t_max, Hittable::HitRecord& hit_record)
 {
     Vec3 oc = ray.origin() - center;

@@ -7,7 +7,6 @@
 class Vec3 {
 public:
     Vec3();
-    Vec3(double min, double max);
     Vec3(double x, double y, double z);
     ~Vec3() = default;
 
@@ -54,6 +53,9 @@ public:
             u.z() * v.x() - u.x() * u.z(),
             u.x() * v.y() - u.y() * v.x() };
     }
+
+    inline static Vec3 random() { return Vec3(random_double(), random_double(), random_double()); }
+    inline static Vec3 random(double min, double max) { return Vec3(random_double(min, max), random_double(min, max), random_double(min, max)); }
 
     static Vec3 random_in_unit_sphere();
 
