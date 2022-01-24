@@ -1,0 +1,4 @@
+bashlex==0.16
+click==8.0.3
+compiledb==0.10.1
+shutilwhich==1.1.0
