@@ -1,8 +1,13 @@
-#/usr/bin/bash
+#!/usr/bin/bash
 set -e
 
 make_exec() {
-    make -j5
+    if command -v compiledb &> /dev/null
+    then
+        compiledb make -j5
+    else
+        make -j5
+    fi
 }
 
 gen_image() {
