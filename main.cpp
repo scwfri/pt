@@ -1,13 +1,15 @@
 #include <iostream>
 
 #include "Camera/Camera.h"
-#include "Maths/Utils.h"
-#include "Maths/Color.h"
-#include "Maths/Vec3.h"
-#include "Ray/Ray.h"
 #include "Hittable/Hittable.h"
 #include "Hittable/HittableWrapper.h"
 #include "Hittable/Sphere.h"
+#include "Maths/Color.h"
+#include "Maths/Utils.h"
+#include "Maths/Vec3.h"
+#include "Ray/Ray.h"
+
+#define DEBUG
 
 double hit_sphere(Point3 const& center, double const radius, Ray const& r)
 {
@@ -51,13 +53,19 @@ int main()
     world.add(std::make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5));
     world.add(std::make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100));
 
-    // camera
-    Camera camera;
+#ifdef DEBUG
+    std::cerr << "---WORLD:---";
+    auto world_objects = world.hittable_objects();
+    for (auto it = world_objects.begin(); it != world_objects.end(); ++it)
+        std::cerr << std::static_pointer_cast<Sphere>(*it)->center() << "\n";
+    std::cerr << "---END WORLD---";
+#endif // DEBUG
 
     std::cout << "P3\n";
     std::cout << image_width << ' ' << image_height << "\n255\n";
 
     std::cerr << "Generating Image...";
+    Camera camera;
     for (int j = image_height - 1; j >= 0; --j) {
         if (j % log_interval == 0)
             std::cerr << "\nGenerating " << j << " of " << image_height - 1;
@@ -67,8 +75,20 @@ int main()
                 auto u = (i + random_double()) / (image_width - 1);
                 auto v = (j + random_double()) / (image_height - 1);
                 Ray ray = camera.get_ray(u, v);
+#ifdef DEBUG
+                std::cerr << "u: " << u << ", v: " << v << "\n";
+                std::cerr << "ray.origin()[" << ray.origin() << "] ray.direction()[" << ray.direction() << "].\n";
+                std::cerr << "pixel_color: " << pixel_color;
+#endif // DEBUG
                 pixel_color += ray_color(ray, world, max_depth);
+#ifdef DEBUG
+                std::cerr << " after: " << pixel_color << "\n";
+#endif // DEBUG
             }
+#ifdef DEBUG
+            std::cerr << "pixel_color: " << pixel_color << "\n";
+            exit(1);
+#endif // DEBUG
             write_color(std::cout, pixel_color, samples_per_pixel);
         }
     }
