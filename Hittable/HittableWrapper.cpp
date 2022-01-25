@@ -6,7 +6,7 @@ bool HittableWrapper::hit(Ray const& ray, double t_min, double t_max, HitRecord&
     bool hit_anything = false;
     auto closest_so_far = t_max;
 
-    for (const auto& hittable_object : hittable_objects)
+    for (const auto& hittable_object : m_hittable_objects)
     {
         if (hittable_object->hit(ray, t_min, closest_so_far, _hit_record)) {
             hit_anything = true;

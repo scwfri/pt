@@ -5,14 +5,17 @@
 
 class Sphere : public Hittable {
 public:
-    Sphere() = default;
+    Sphere() = delete;
     ~Sphere() = default;
 
-    Sphere(Point3, double const r);
+    Sphere(Point3, double r);
 
-    virtual bool hit(Ray const&, double const t_min, double const t_max, HitRecord&) override;
+    virtual bool hit(Ray const&, double t_min, double t_max, HitRecord&) override;
+
+    Point3 center() { return m_center; }
+    double radius() { return m_radius; }
 
 private:
-    Point3 center;
-    double const radius;
+    Point3 m_center;
+    double m_radius;
 };
