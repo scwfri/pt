@@ -44,6 +44,11 @@ Vec3 Vec3::random_in_unit_sphere()
     }
 }
 
+Vec3 Vec3::random_unit_vector()
+{
+    return unit_vector(Vec3::random_in_unit_sphere());
+}
+
 std::ostream& operator<<(std::ostream& out, Vec3 const& v)
 {
     return out << v.x() << ' ' << v.y() << ' ' << v.z();

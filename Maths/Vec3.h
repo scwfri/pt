@@ -58,6 +58,8 @@ public:
     inline static Vec3 random(double min, double max) { return Vec3(random_double(min, max), random_double(min, max), random_double(min, max)); }
 
     static Vec3 random_in_unit_sphere();
+    static Vec3 random_unit_vector();
+
 
 private:
     double m_x;
